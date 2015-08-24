@@ -166,6 +166,31 @@ class Result
     }
 
     /**
+     * return source with embed data from inner_hits
+     *
+     * @return array
+     */
+    public function getSourceWithInnerHits()
+    {
+        $source = $this->getSource();
+        $innerHits = $this->getInnerHits();
+
+        foreach ($innerHits as $path => $data) {
+            unset($source[$path]);
+            $innerHitsSources = array();
+            if (!empty($data['hits']['hits'])) {
+                foreach ($data['hits']['hits'] as $innerHit) {
+                    if (!empty($innerHit['_source']))
+                        $innerHitsSources[] = $innerHit['_source'];
+                }
+            }
+            $source[$path] = $innerHitsSources;
+        }
+
+        return $source;
+    }
+
+    /**
      * Returns result data.
      *
      * @return array Result data array
@@ -214,4 +239,13 @@ class Result
 
         return array_key_exists($key, $source) && $source[$key] !== null;
     }
+
+    /**
+     * @return array
+     */
+    public function getInnerHits()
+    {
+        return $this->getParam('inner_hits');
+    }
+
 }

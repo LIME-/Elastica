@@ -59,4 +59,14 @@ class Nested extends AbstractFilter
     {
         return $this->setParam('join', (bool) $join);
     }
+
+    /**
+     * Add inner_hits param to filter
+     *
+     * @return $this
+     */
+    public function setInnerHits()
+    {
+        return $this->setParam('inner_hits', new \stdClass());
+    }
 }
