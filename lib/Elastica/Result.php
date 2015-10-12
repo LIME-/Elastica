@@ -184,7 +184,7 @@ class Result
                         $innerHitsSources[] = $innerHit['_source'];
                 }
             }
-            $source[$path] = $innerHitsSources;
+            $source['_inner_hits'][$path] = $innerHitsSources;
         }
 
         return $source;

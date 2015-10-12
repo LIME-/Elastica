@@ -63,10 +63,11 @@ class Nested extends AbstractFilter
     /**
      * Add inner_hits param to filter
      *
+     * @param InnerHits $innerHits
      * @return $this
      */
-    public function setInnerHits()
+    public function setInnerHits(InnerHits $innerHits)
     {
-        return $this->setParam('inner_hits', new \stdClass());
+        return $this->setParam('inner_hits', $innerHits);
     }
 }
